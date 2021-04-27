@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "imageTypes": [".png"],
+        "alias": {
+          "@screens": "screens",
+          "@navigation": "navigation",
+          "@types": "types"
+        }
+      }
+    ]
+  ]
+}
