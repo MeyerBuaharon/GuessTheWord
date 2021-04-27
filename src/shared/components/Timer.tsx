@@ -2,15 +2,16 @@ import {routes} from '../../navigation';
 import React from 'react';
 import styled from 'styled-components/native';
 import {Text} from 'react-native';
+import {Typography} from '.';
 
 const Container = styled.View`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 15;
+  right: 15;
 `;
 
 const Timer: React.FC<any> = ({navigate}) => {
-  const [seconds, setSeconds] = React.useState(10);
+  const [seconds, setSeconds] = React.useState(3);
 
   React.useEffect(() => {
     if (seconds > 0) {
@@ -22,7 +23,7 @@ const Timer: React.FC<any> = ({navigate}) => {
 
   return (
     <Container>
-      <Text>{seconds}</Text>
+      <Typography>{seconds}</Typography>
     </Container>
   );
 };
