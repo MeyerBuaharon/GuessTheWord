@@ -11,13 +11,12 @@ const Container = styled.View`
 `;
 
 const Timer: React.FC<any> = ({navigate}) => {
-  const [seconds, setSeconds] = React.useState(3);
-
+  const [seconds, setSeconds] = React.useState(30);
   React.useEffect(() => {
     if (seconds > 0) {
       setTimeout(() => setSeconds(seconds - 1), 1000);
     } else {
-      navigate(routes.gameOver.name);
+      //   navigate(routes.gameOver.name);
     }
   });
 

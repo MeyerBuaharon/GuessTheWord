@@ -16,7 +16,7 @@ const RootStack = () => {
           fontWeight: '200',
           color: '#aaaaaa',
         },
-        headerTintColor: '#aaaaaa',
+        headerLeft: null,
       }}>
       {Object.keys(routes).map((key: string, index) => (
         <Stack.Screen

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import RandomWord from 'random-words';
 import {
   Root,
   H1,
@@ -6,18 +7,69 @@ import {
   HighScoreContainer,
   Typography,
   Timer,
+  TextInput,
+  Life,
 } from '../shared/components';
 import {IStackScreenProps} from 'src/shared/types';
+import theme from '../shared/theme';
+import {routes} from '../navigation';
 
 const GameScreen: React.FC<IStackScreenProps> = ({navigation, route}) => {
+  const [word, setWord] = useState<string>(RandomWord());
+  const [guessWord, setGuessWord] = useState<string>('');
+  const [maskedWord, setMaskedWord] = useState<string>('');
+  const [score, setScore] = useState<number>(0);
+  const [difficulty, setDifficulty] = useState<number>(1);
+  const [lives, setLives] = useState<number>(3);
+
+  const guessWordHandler = () => {
+    if (guessWord === word) {
+      setScore(score + 1);
+      setWord(RandomWord());
+    } else {
+      if (lives - 1 === 0) {
+        navigation.navigate(routes.gameOver.name);
+      }
+      setLives(lives - 1);
+    }
+  };
+
+  useEffect(() => {
+    setMaskedWord(maskWord);
+  }, [word]);
+  const maskWord = () => {
+    const splittedWord = word.split('');
+    for (
+      let index = 0;
+      index < splittedWord.length / 2 && index < difficulty;
+      index++
+    ) {
+      let randomIndex = Math.floor(Math.random() * word.length);
+      if (
+        splittedWord[randomIndex] !== '_' &&
+        splittedWord[randomIndex] !== ' '
+      ) {
+        splittedWord[randomIndex] = '_';
+      }
+    }
+    return splittedWord.join('');
+  };
+
   const navigate = navigation?.navigate;
   return (
     <Root>
-      <Timer />
-      <H1>Guess The Word</H1>
-
+      <Timer navigate={navigate} />
+      <Life CurrentLives={lives} />
+      <H1>{maskedWord}</H1>
+      <TextInput
+        value={guessWord}
+        onChangeText={text => setGuessWord(text)}
+        placeholder="Guess A Word"
+        placeholderTextColor={theme.colors.text}
+      />
+      <PressableButton title="Guess" onPress={() => guessWordHandler()} />
       <HighScoreContainer>
-        <Typography>Score: 3</Typography>
+        <Typography>Score: {score}</Typography>
         <Typography>High Score: 15</Typography>
       </HighScoreContainer>
     </Root>
