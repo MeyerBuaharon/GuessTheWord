@@ -25,6 +25,7 @@ const GameScreen: React.FC<IStackScreenProps> = ({navigation, route}) => {
   const guessWordHandler = () => {
     if (guessWord === word) {
       setScore(score + 1);
+      if (score % 5 === 0) setDifficulty(difficulty + 1);
       setWord(RandomWord());
     } else {
       if (lives - 1 === 0) {
