@@ -1,5 +1,5 @@
 import {routes} from '../../navigation';
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import {Text} from 'react-native';
 import {Typography} from '.';
@@ -10,13 +10,16 @@ const Container = styled.View`
   right: 15;
 `;
 
-const Timer: React.FC<any> = ({navigate}) => {
+const Timer: React.FC<any> = ({navigate, resetTimer, setResetTimer}) => {
   const [seconds, setSeconds] = React.useState(30);
-  React.useEffect(() => {
-    if (seconds > 0) {
+  useEffect(() => {
+    if (resetTimer) {
+      setSeconds(30);
+      setResetTimer(false);
+    } else if (seconds > 0) {
       setTimeout(() => setSeconds(seconds - 1), 1000);
     } else {
-      //   navigate(routes.gameOver.name);
+      navigate(routes.gameOver.name);
     }
   });
 

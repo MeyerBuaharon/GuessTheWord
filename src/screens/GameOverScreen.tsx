@@ -1,15 +1,34 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
 import {IStackScreenProps} from 'src/shared/types';
+import styled from 'styled-components/native';
+import {
+  Root,
+  H1,
+  PressableButton,
+  Typography,
+  HighScoreContainer,
+} from '../shared/components';
+import {routes} from '../navigation';
 
-const GameOverScreen: React.FC<IStackScreenProps> = ({navigation, route}) => {
+const ButtonContainer = styled.View``;
+
+const GameOver: React.FC<IStackScreenProps> = ({navigation}) => {
   const navigate = navigation?.navigate;
   return (
-    <View>
-      <Button onPress={() => console.log('gameOver')} title="GameOver" />
-      <Text>test</Text>
-    </View>
+    <Root>
+      <H1>GAME OVER</H1>
+      <ButtonContainer>
+        <PressableButton
+          onPress={() => navigate(routes.menu.name)}
+          title="Go Back To Menu"
+        />
+        <PressableButton
+          onPress={() => navigate(routes.leaderBoards.name)}
+          title="Leader Board"
+        />
+      </ButtonContainer>
+    </Root>
   );
 };
 
-export default GameOverScreen;
+export default GameOver;

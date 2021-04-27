@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'react-native';
 import {IStackScreenProps} from 'src/shared/types';
 import styled from 'styled-components/native';
 import {

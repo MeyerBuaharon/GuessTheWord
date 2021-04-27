@@ -20,9 +20,11 @@ const GameScreen: React.FC<IStackScreenProps> = ({navigation, route}) => {
   const [maskedWord, setMaskedWord] = useState<string>('');
   const [score, setScore] = useState<number>(0);
   const [difficulty, setDifficulty] = useState<number>(1);
+  const [resetTimer, setResetTimer] = useState<boolean>(false);
   const [lives, setLives] = useState<number>(3);
 
   const guessWordHandler = () => {
+    setResetTimer(true);
     if (guessWord === word) {
       setScore(score + 1);
       if (score % 5 === 0) setDifficulty(difficulty + 1);
@@ -59,7 +61,11 @@ const GameScreen: React.FC<IStackScreenProps> = ({navigation, route}) => {
   const navigate = navigation?.navigate;
   return (
     <Root>
-      <Timer navigate={navigate} />
+      <Timer
+        navigate={navigate}
+        resetTimer={resetTimer}
+        setResetTimer={setResetTimer}
+      />
       <Life CurrentLives={lives} />
       <H1>{maskedWord}</H1>
       <TextInput
